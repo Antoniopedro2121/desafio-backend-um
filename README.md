@@ -2,7 +2,7 @@
 
 # descrição
 
-Essa e uma aplicação que ira ler os arquivos canab cadastrar no banco o loja e as transações efetuada nessa loja
+Essa e uma aplicação que ira ler os arquivos canab cadastrar no banco a loja e as transações efetuada nessa loja
 
 # Para rodar o projeto
 
