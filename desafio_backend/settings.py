@@ -41,6 +41,7 @@ DJANGO_APPS = [
 
 THIRD_APPS = [
     'rest_framework',
+    'drf_spectacular',
 ]
 
 PROJECT_APPS = [
@@ -135,3 +136,14 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Projeto back end do m6',
+    'DESCRIPTION': 'Esse e um projeto do modulo m6 para relembra o python e testa os conhecimentos',
+    'VERSION': '1',
+    'SERVE_INCLUDE_SCHEMA': False,
+}

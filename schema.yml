@@ -1,0 +1,155 @@
+openapi: 3.0.3
+info:
+  title: Projeto back end do m6
+  version: '1'
+  description: Esse e um projeto do modulo m6 para relembra o python e testa os conhecimentos
+paths:
+  /api/lojas/:
+    get:
+      operationId: root_list
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LojasSerializers'
+          description: ''
+  /api/lojas/{id}/:
+    get:
+      operationId: root_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LojasSerializers'
+          description: ''
+  /api/lojas/transacao/:
+    get:
+      operationId: transacao_list
+      tags:
+      - transacao
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LojasTransacaoSerializers'
+          description: ''
+    post:
+      operationId: transacao_create
+      tags:
+      - transacao
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LojasTransacaoSerializers'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LojasTransacaoSerializers'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LojasTransacaoSerializers'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LojasTransacaoSerializers'
+          description: ''
+components:
+  schemas:
+    LojasSerializers:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        lojas_transacao:
+          type: array
+          items:
+            $ref: '#/components/schemas/LojasTransacaoSerializers'
+        nome_loja:
+          type: string
+          maxLength: 100
+        dono_da_loja:
+          type: string
+          maxLength: 100
+        saldo_loja:
+          type: integer
+        data_criacao:
+          type: string
+          format: date-time
+          readOnly: true
+        data_atualizacao:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - data_atualizacao
+      - data_criacao
+      - dono_da_loja
+      - id
+      - lojas_transacao
+      - nome_loja
+    LojasTransacaoSerializers:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        tipo:
+          type: integer
+        data:
+          type: string
+          maxLength: 100
+        valor:
+          type: integer
+        cpf:
+          type: string
+          maxLength: 20
+        cartao:
+          type: string
+          maxLength: 20
+        hora:
+          type: string
+          maxLength: 100
+        loja:
+          type: integer
+      required:
+      - cartao
+      - cpf
+      - data
+      - hora
+      - id
+      - loja
+      - tipo
+      - valor
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
